@@ -2,6 +2,7 @@ import os
 import torch
 from PIL import Image
 from ultralytics import YOLO
+import numpy as np
 
 print("CUDA Available:", torch.cuda.is_available())
 print("CUDA Version:", torch.version.cuda)
@@ -23,6 +24,10 @@ test_image_files.extend([f for f in os.listdir(test_dog_path)])
 train_image_files = [f for f in os.listdir(train_cat_path)]
 train_image_files.extend([f for f in os.listdir(train_dog_path)])
 
+print('size test: ' + np.size(test_image_files))
+print('size train: ' + np.size(train_image_files))
+
 model = YOLO('yolov8s.pt')
-results = model(os.path.join(test_cat_path, test_image_files[0]))
-results[0].show()
+for i in range(3):
+    results = model(os.path.join(test_cat_path, test_image_files[i]))
+    results[0].show()
