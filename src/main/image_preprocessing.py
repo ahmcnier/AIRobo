@@ -36,9 +36,8 @@ class ImageProcessor:
     #the image numerical array rather that ++n the raw image
     def resize_images(self, file_paths):
         #set up pytorch tensors
-        all_img_arrays = np.zeros((len(self.img_width), self.avg_img_height, self.avg_img_width, 3)) #dimensions = number of images x height x width x channels
+        all_img_arrays = np.zeros((len(self.img_width), self.avg_img_height, self.avg_img_width, 3), dtype='uint8') #dimensions = number of images x height x width x channels
 
-        print('Adding image arrays to list')
         #loop through all images in file path, resize images and add them to list of image arrays.
         index = 0
         for path in file_paths:
