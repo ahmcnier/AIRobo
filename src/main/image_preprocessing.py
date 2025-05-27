@@ -11,17 +11,15 @@ class ImageProcessor:
         self.avg_img_height = 0
 
     @staticmethod
-    def find_image_file_paths():
+    def find_image_file_paths(directory_path):
         image_paths = []
-        base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data'))
 
-        for root, dirs, files in os.walk(base_dir
-                                         ):
+        for root, dirs, files in os.walk(directory_path):
             for file in files:
                 if file.lower().endswith(('.jpg', '.jpeg', '.png')):
                     image_paths.append(os.path.join(root, file))
 
-        print("Found " + str(len(image_paths)) + " images")
+        print("Found " + str(len(image_paths)) + " images in directory " + directory_path + ".")
         return image_paths
 
     def obtain_image_dims(self, img_file_path):
