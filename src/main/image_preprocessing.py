@@ -1,6 +1,6 @@
 import os
-import numpy as np
-from tensorflow.keras.utils import load_img, img_to_array
+from tensorflow.keras.utils import load_img
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 class ImageProcessor:
     def __init__(self, min_img_width=128):
@@ -29,22 +29,31 @@ class ImageProcessor:
         self.img_height.append(height)
 
     def calculate_mean_image_dims(self):
-        self.avg_img_width = int(np.round(np.mean(self.img_width)))
-        self.avg_img_height = int(np.round(np.mean(self.img_height)))
+        # self.avg_img_width = int(np.round(np.mean(self.img_width)))
+        # self.avg_img_height = int(np.round(np.mean(self.img_height)))
+        self.avg_img_width = 256
+        self.avg_img_height = 256
 
     #this method should resize all of the images to have the mean image heights and widths. Training the CNN requires
-    #the image numerical array rather that ++n the raw image
-    def resize_images(self, file_paths):
-        #set up pytorch tensors
-        all_img_arrays = np.zeros((len(file_paths), self.avg_img_height, self.avg_img_width, 3), dtype='float32') #dimensions = number of images x height x width x channels
+    #the image numerical array rather than the raw image and one-hot coded vectors for labels - both done automatically #
+    #through the ImageDataGenerator method from tensorflow
+    def resize_images(self, dir):
+        datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
 
-        #loop through all images in file path, resize images and add them to list of image arrays.
-        index = 0
-        for path in file_paths:
-            img = load_img(path, target_size=(self.avg_img_height, self.avg_img_width))
-            img_array = img_to_array(img) #convert to array
-            img_array = img_array / 255.0 #normalise
-            all_img_arrays[index] = img_array
-            index += 1
+        train_image_generator = datagen.flow_from_directory(
+            dir,
+            target_size=(self.avg_img_height, self.avg_img_width),
+            batch_size=16,
+            class_mode='categorical',
+            subset='training'
+        )
 
-        return all_img_arrays
+        val_image_generator = datagen.flow_from_directory(
+            dir,
+            target_size=(self.avg_img_height, self.avg_img_width),
+            batch_size=16,
+            class_mode='categorical',
+            subset='validation'
+        )
+
+        return train_image_generator, val_image_generator
