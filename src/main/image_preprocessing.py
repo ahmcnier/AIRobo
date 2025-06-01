@@ -38,14 +38,23 @@ class ImageProcessor:
     #the image numerical array rather than the raw image and one-hot coded vectors for labels - both done automatically #
     #through the ImageDataGenerator method from tensorflow
     def resize_images(self, dir):
-        datagen = ImageDataGenerator(rescale=1./255, validation_split=0.2)
+        datagen = ImageDataGenerator(
+            rescale=1./255,
+            validation_split=0.2,
+            rotation_range=15,
+            zoom_range=0.1,
+            brightness_range=(0.5, 1.25),
+            width_shift_range=0.1,
+            height_shift_range=0.1
+        )
 
         train_image_generator = datagen.flow_from_directory(
             dir,
             target_size=(self.avg_img_height, self.avg_img_width),
             batch_size=16,
             class_mode='categorical',
-            subset='training'
+            subset='training',
+            shuffle=True
         )
 
         val_image_generator = datagen.flow_from_directory(
@@ -53,7 +62,8 @@ class ImageProcessor:
             target_size=(self.avg_img_height, self.avg_img_width),
             batch_size=16,
             class_mode='categorical',
-            subset='validation'
+            subset='validation',
+            shuffle=True
         )
 
         return train_image_generator, val_image_generator
