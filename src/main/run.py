@@ -29,7 +29,7 @@ def run():
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
-    early_stop = EarlyStopping(monitor='val_loss', patience=3)
+    early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
     model_history = model.fit(train_dataset, validation_data=val_dataset, epochs=25, callbacks=[early_stop])
 
     plot_loss_and_accuracy(model_history)
@@ -59,7 +59,7 @@ def plot_loss_and_accuracy(model_history):
 
     plt.tight_layout()
     plt.show()
-    plt.savefig('train-and-val-data.png')
+    plt.savefig('results/train-and-val-fewer-filters.png')
 
 
 if __name__ == '__main__':
