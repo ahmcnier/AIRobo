@@ -14,13 +14,14 @@ class ImageClassifier():
             layers.Conv2D(32, (10, 10), activation='relu'),
             layers.MaxPooling2D(),
             #this layer will get a little more detail from the images.
-            layers.Conv2D(64, (7, 7), activation='relu'),
-            layers.MaxPooling2D(),
-            layers.Conv2D(128, (3, 3), activation='relu'),
+            # layers.Conv2D(64, (7, 7), activation='relu'),
+            # layers.MaxPooling2D(),
+            layers.Conv2D(128, (4, 4), activation='relu'),
             layers.MaxPooling2D(),
             layers.Flatten(),
+            layers.Dropout(0.3), #to reduce overfitting
             layers.Dense(128, activation='relu'),
-            layers.Dropout(0.5), #to reduce overfitting
+            layers.Dropout(0.2), #to reduce overfitting
             layers.Dense(self.num_classes, activation='softmax')
         ])
 
