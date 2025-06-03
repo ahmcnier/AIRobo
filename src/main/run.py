@@ -58,7 +58,7 @@ def plot_loss_and_accuracy(model_history):
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig('results/train-and-val-with-batch-normalisation-and-more-layers.jpeg')
+    plt.savefig('results/train-and-val-with-more-negatives.jpeg')
     plt.show()
 
 

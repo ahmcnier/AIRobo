@@ -1,6 +1,7 @@
 import os
 from tensorflow.keras.utils import load_img
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from PIL import ImageFile
 
 class ImageProcessor:
     def __init__(self, min_img_width=128):
@@ -47,6 +48,8 @@ class ImageProcessor:
             width_shift_range=0.1,
             height_shift_range=0.1
         )
+
+        ImageFile.LOAD_TRUNCATED_IMAGES = True
 
         train_image_generator = datagen.flow_from_directory(
             dir,
