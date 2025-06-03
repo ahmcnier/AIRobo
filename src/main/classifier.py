@@ -16,6 +16,8 @@ class ImageClassifier():
             layers.Activation('relu'),
             layers.MaxPooling2D(),
             #this layer will get a little more detail from the images.
+            layers.Conv2D(32, (7, 7), activation='relu'),
+            layers.MaxPooling2D(),
             layers.Conv2D(64, (7, 7), activation='relu'),
             layers.MaxPooling2D(),
             layers.Conv2D(128, (4, 4), activation='relu'),
