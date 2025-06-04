@@ -11,16 +11,16 @@ class ImageClassifier():
         model = models.Sequential([
             layers.Input((self.img_height, self.img_width, self.n_channels)),
             #first layer will get high level features from images (i.e. edges)
-            layers.Conv2D(32, (10, 10)),
+            layers.Conv2D(32, (5, 5)),
             layers.BatchNormalization(),
             layers.Activation('relu'),
-            layers.MaxPooling2D(),
             #this layer will get a little more detail from the images.
-            layers.Conv2D(32, (7, 7), activation='relu'),
+            layers.Conv2D(128, (3, 3), activation='relu'),
             layers.MaxPooling2D(),
-            layers.Conv2D(64, (7, 7), activation='relu'),
-            layers.MaxPooling2D(),
-            layers.Conv2D(128, (4, 4), activation='relu'),
+            layers.Conv2D(64, (5, 5)),
+            layers.BatchNormalization(),
+            layers.Activation('relu'),
+            layers.Conv2D(128, (3, 3), activation='relu'),
             layers.MaxPooling2D(),
             layers.Flatten(),
             layers.Dropout(0.3), #to reduce overfitting
