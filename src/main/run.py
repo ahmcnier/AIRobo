@@ -68,7 +68,7 @@ def plot_loss_and_accuracy(model_history):
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig('results/train-and-val-with-fewer-max-pooling-layers.jpeg')
+    plt.savefig('results/train-and-val.jpeg')
     plt.show()
 
 
