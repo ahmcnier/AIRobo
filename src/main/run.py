@@ -3,8 +3,18 @@ import os
 from tensorflow.keras.callbacks import EarlyStopping
 from classifier import ImageClassifier
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 def run():
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    if gpus:
+        try:
+            for gpu in gpus:
+                tf.config.experimental.set_memory_growth(gpu, True)
+            print("Memory growth enabled")
+        except RuntimeError as e:
+            print(e)
+
     image_processor = ImageProcessor()
     dataset_bas_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data'))
     image_paths = image_processor.find_image_file_paths(os.path.abspath(dataset_bas_dir))
