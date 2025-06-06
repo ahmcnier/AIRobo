@@ -1,4 +1,4 @@
-from tensorflow.keras import layers, models
+from tensorflow.keras import layers, models, regularizers
 
 class ImageClassifier():
     def __init__(self, img_height, img_width, n_channels):
@@ -10,7 +10,6 @@ class ImageClassifier():
     def model(self):
         model = models.Sequential([
             layers.Input((self.img_height, self.img_width, self.n_channels)),
-            #first layer will get high level features from images (i.e. edges)
             layers.Conv2D(32, (5, 5), padding='same'),
             layers.BatchNormalization(),
             layers.Activation('relu'),
@@ -24,9 +23,9 @@ class ImageClassifier():
             layers.Activation('relu'),
             layers.MaxPooling2D(),
             layers.Flatten(),
-            layers.Dropout(0.3), #to reduce overfitting
-            layers.Dense(128, activation='relu'),
-            layers.Dropout(0.2), #to reduce overfitting
+            layers.Dropout(0.3),
+            layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
+            layers.Dropout(0.2),
             layers.Dense(self.num_classes, activation='softmax')
         ])
 
