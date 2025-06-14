@@ -22,7 +22,7 @@ class ImageClassifier():
             layers.BatchNormalization(),
             layers.Activation('relu'),
             layers.MaxPooling2D(),
-            layers.Flatten(),
+            layers.GlobalAveragePooling2D(),
             layers.Dropout(0.3),
             layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
             layers.Dropout(0.2),
