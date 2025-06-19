@@ -5,7 +5,7 @@ class ImageClassifier():
         self.img_height = img_height
         self.img_width = img_width
         self.n_channels = n_channels
-        self.num_classes = 3 #cats, dogs and negative samples (empty images)
+        self.num_classes = 2 #positive (either cats or dogs) and negative samples (empty images)
 
     def model(self):
         model = models.Sequential([
