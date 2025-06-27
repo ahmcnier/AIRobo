@@ -23,9 +23,8 @@ class ImageClassifier():
             layers.Activation('relu'),
             layers.MaxPooling2D(),
             layers.GlobalAveragePooling2D(),
-            layers.Dropout(0.3),
             layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
-            layers.Dropout(0.2),
+            layers.Dropout(0.5),
             layers.Dense(self.num_classes, activation='softmax')
         ])
 

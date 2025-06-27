@@ -28,9 +28,8 @@ def run():
     train_dataset, val_dataset = image_processor.resize_images('../data')
     print('Image arrays created')
 
-    # #0 = cat
-    # #1 = dog
-    # #2 = negative
+    # #0 = cat/dog
+    # #1 = negative
 
     classifier = ImageClassifier(image_processor.avg_img_height, image_processor.avg_img_height, 3)
     model = classifier.model()
@@ -39,8 +38,8 @@ def run():
                   loss='categorical_crossentropy',
                   metrics=['accuracy'])
 
-    early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
-    model_history = model.fit(train_dataset, validation_data=val_dataset, epochs=25, callbacks=[early_stop])
+    # early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
+    model_history = model.fit(train_dataset, validation_data=val_dataset, epochs=25)
 
     plot_loss_and_accuracy(model_history)
 
