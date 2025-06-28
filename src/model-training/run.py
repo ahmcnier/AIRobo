@@ -39,8 +39,8 @@ def run():
                   metrics=['accuracy'])
 
     # early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
-    model_history = model.fit(train_dataset, validation_data=val_dataset, epochs=25)
-
+    model_history = model.fit(train_dataset, validation_data=val_dataset, epochs=45)
+    model.save('pet-classifier.h5')
     plot_loss_and_accuracy(model_history)
 
 
@@ -67,7 +67,7 @@ def plot_loss_and_accuracy(model_history):
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig('results/train-and-val-using-two-classes.jpeg')
+    plt.savefig('results/train-and-val-more-dropout-layers.jpeg')
     plt.show()
 
 
