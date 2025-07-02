@@ -8,12 +8,12 @@ class ImageClassifier():
         self.num_classes = 2 #positive (either cats or dogs) and negative samples (empty images)
 
     def model(self):
+        #try experiment with pre activation - putting batch noramlisation before convd2d layers
         model = models.Sequential([
             layers.Input((self.img_height, self.img_width, self.n_channels)),
             layers.Conv2D(32, (5, 5), padding='same'),
             layers.BatchNormalization(),
             layers.Activation('relu'),
-            layers.Dropout(0.1),
             layers.MaxPooling2D(),
             layers.Conv2D(64, (4, 4), padding='same'),
             layers.BatchNormalization(),
@@ -27,8 +27,7 @@ class ImageClassifier():
             layers.GlobalAveragePooling2D(),
             layers.Dropout(0.3),
             layers.Dense(128, activation='relu', kernel_regularizer=regularizers.l2(0.001)),
-            layers.Dropout(0.5),
-            layers.Dense(self.num_classes, activation='softmax')
+            layers.Dense(self.num_classes, activation='sigmoid')
         ])
 
         return model

@@ -35,7 +35,7 @@ def run():
     model = classifier.model()
 
     model.compile(optimizer='adam',
-                  loss='categorical_crossentropy',
+                  loss='binary_crossentropy',
                   metrics=['accuracy'])
 
     # early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
@@ -67,7 +67,7 @@ def plot_loss_and_accuracy(model_history):
     plt.legend()
 
     plt.tight_layout()
-    plt.savefig('results/train-and-val-more-dropout-layers.jpeg')
+    plt.savefig('results/train-and-val-some-dropout-layers-binary-classifier.jpeg')
     plt.show()
 
 
