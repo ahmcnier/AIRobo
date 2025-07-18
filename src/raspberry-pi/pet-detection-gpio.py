@@ -1,11 +1,47 @@
 from gpiozero import LED
 from time import sleep
+import RPi.GPIO as GPIO
+import time
 
 led = LED(17)
-for i in range(10):
-    print("LED on")
-    led.on()
-    sleep(2)
-    print("LED off")
-    led.off()
-    sleep(2)
+
+#signel to tell us it's working
+print("LED on")
+led.on()
+
+#test US sensor
+TRIG = 23
+ECHO = 24
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(TRIG, GPIO.OUT)
+GPIO.setup(ECHO, GPIO.IN)
+
+def get_distance():
+    GPIO.output(TRIG, False)
+    time.sleep(0.1)
+
+    GPIO.output(TRIG, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
+
+    while GPIO.input(ECHO) == 0:
+        pulse_start = time.time()
+
+    while GPIO.input(ECHO) == 1:
+        pulse_end = time.time()
+
+    pulse_duration = pulse_end - pulse_start
+    distance = pulse_duration * 17150  # Speed of sound constant
+    distance = round(distance, 2)
+
+    return distance
+
+try:
+    while True:
+        dist = get_distance()
+        print(f"Distance: {dist} cm")
+        time.sleep(1)
+
+except KeyboardInterrupt:
+    GPIO.cleanup()
