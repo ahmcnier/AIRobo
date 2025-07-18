@@ -38,8 +38,9 @@ try:
         dist = get_distance()
         print(f"Distance: {dist} cm")
         time.sleep(1)
+
+        #light up LED when object is closer than 30cm away
         if dist >= 30:
-            #light up LED when object is closer than 30cm away
             print("LED off")
             led.off()
         else:
