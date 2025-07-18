@@ -5,10 +5,6 @@ import time
 
 led = LED(17)
 
-#signel to tell us it's working
-print("LED on")
-led.on()
-
 #test US sensor
 TRIG = 23
 ECHO = 24
@@ -42,6 +38,10 @@ try:
         dist = get_distance()
         print(f"Distance: {dist} cm")
         time.sleep(1)
+        if dist >= 30:
+            #light up LED when object is closer than 30cm away
+            print("LED on")
+            led.on()
 
 except KeyboardInterrupt:
     GPIO.cleanup()
