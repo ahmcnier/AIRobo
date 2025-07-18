@@ -40,6 +40,9 @@ try:
         time.sleep(1)
         if dist >= 30:
             #light up LED when object is closer than 30cm away
+            print("LED off")
+            led.off()
+        else:
             print("LED on")
             led.on()
 
