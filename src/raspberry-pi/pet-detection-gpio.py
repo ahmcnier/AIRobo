@@ -12,6 +12,9 @@ cap1 = cv2.VideoCapture(0)
 # Open second camera (usually /dev/video1)
 cap2 = cv2.VideoCapture(1)
 
+# Open second camera (usually /dev/video1)
+cap2 = cv2.VideoCapture(2)
+
 if not cap1.isOpened():
     print("Camera 0 failed to open.")
     exit()
@@ -23,6 +26,12 @@ if not cap2.isOpened():
     exit()
 else:
     print("cam 1 is opened!")
+
+if not cap3.isOpened():
+    print("Camera 2 failed to open.")
+    exit()
+else:
+    print("cam 2 is opened!")
 
 #test US sensor
 TRIG = 23
