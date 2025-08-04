@@ -12,7 +12,7 @@ cap1 = cv2.VideoCapture(0)
 # Open second camera (usually /dev/video1)
 cap2 = cv2.VideoCapture(1)
 
-# Open second camera (usually /dev/video1)
+# Open second camera (usually /dev/video2)
 cap3 = cv2.VideoCapture(2)
 
 if not cap1.isOpened():
@@ -85,6 +85,7 @@ try:
         # Show both camera feeds in different windows
         cv2.imshow("Camera 1", frame1)
         cv2.imshow("Camera 2", frame2)
+        cv2.imshow("Camera 3", frame2)
 
         # Press 'q' to quit
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -95,4 +96,5 @@ except KeyboardInterrupt:
     # Release both cameras and close windows
     cap1.release()
     cap2.release()
+    cap3.release()
     cv2.destroyAllWindows()
