@@ -6,33 +6,29 @@ import cv2
 
 led = LED(17)
 
-# # Open first camera (usually /dev/video0)
-# cap1 = cv2.VideoCapture(0)
-#
-# # Open second camera (usually /dev/video1)
-# cap2 = cv2.VideoCapture(2)
-#
-# # Open second camera (usually /dev/video2)
-# cap3 = cv2.VideoCapture(4)
+# Open first camera (usually /dev/video0)
+cap1 = cv2.VideoCapture(0)
 
-for i in range(20):
-    if cv2.VideoCapture(i).isOpened():
-        print("camera " + str(i) + " opened")
+# Open second camera (usually /dev/video1)
+cap2 = cv2.VideoCapture(2)
 
-# if cap1.isOpened():
-#     print("cam 0 is opened!")
-# else:
-#     print("Camera 0 failed to open.")
-#
-# if cap2.isOpened():
-#     print("cam 1 is opened!")
-# else:
-#     print("Camera 1 failed to open.")
-#
-# if cap3.isOpened():
-#     print("cam 2 is opened!")
-# else:
-#     print("Camera 2 failed to open.")
+# Open second camera (usually /dev/video2)
+cap3 = cv2.VideoCapture(4)
+
+if cap1.isOpened():
+    print("cam 0 is opened!")
+else:
+    print("Camera 0 failed to open.")
+
+if cap2.isOpened():
+    print("cam 1 is opened!")
+else:
+    print("Camera 1 failed to open.")
+
+if cap3.isOpened():
+    print("cam 2 is opened!")
+else:
+    print("Camera 2 failed to open.")
 
 #test US sensor
 TRIG = 23
@@ -78,6 +74,7 @@ try:
 
         ret1, frame1 = cap1.read()
         ret2, frame2 = cap2.read()
+        ret3, frame3 = cap3.read()
 
         if not ret1 or not ret2:
             print("❌ Failed to read from one of the cameras.")
