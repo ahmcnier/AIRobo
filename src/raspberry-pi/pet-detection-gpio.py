@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from gpiozero import LED
 from time import sleep
 import RPi.GPIO as GPIO
@@ -14,6 +16,8 @@ cap2 = cv2.VideoCapture(2)
 
 # Open second camera (usually /dev/video2)
 cap3 = cv2.VideoCapture(4)
+
+cameras = [cap1, cap2, cap3]
 
 #test US sensor
 TRIG = 23
@@ -57,22 +61,20 @@ try:
             print("LED on")
             led.on()
 
-        ret1, frame1 = cap1.read()
-        ret2, frame2 = cap2.read()
-        ret3, frame3 = cap3.read()
+        index = 0
+        for cam in cameras:
+            ret, frame = cam.read()
+            cam.release()
 
-        if not ret1 or not ret2:
-            print("❌ Failed to read from one of the cameras.")
-            break
+            if not ret:
+                print("Camera %i failed", index)
 
-        # Show both camera feeds in different windows
-        cv2.imshow("Camera 1", frame1)
-        cv2.imshow("Camera 2", frame2)
-        cv2.imshow("Camera 3", frame2)
+            out_dir = Path("camera-images")
+            out_dir.mkdir(exist_ok=True)
+            filename = out_dir / f"photo_{index}.jpg"
 
-        # Press 'q' to quit
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+            cv2.imwrite(str(filename), frame, [cv2.IMWRITE_JPEG_QUALITY, 90])
+            print(f"Saved JPEG to {filename}")
 
 except KeyboardInterrupt:
     GPIO.cleanup()
