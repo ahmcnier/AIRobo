@@ -10,10 +10,10 @@ led = LED(17)
 cap1 = cv2.VideoCapture(0)
 
 # Open second camera (usually /dev/video1)
-cap2 = cv2.VideoCapture(1)
+cap2 = cv2.VideoCapture(2)
 
 # Open second camera (usually /dev/video2)
-cap3 = cv2.VideoCapture(2)
+cap3 = cv2.VideoCapture(4)
 
 if cap1.isOpened():
     print("cam 0 is opened!")
