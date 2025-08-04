@@ -47,6 +47,24 @@ def get_distance():
 
     return distance
 
+def capture_images():
+    index = 0
+    for cam in cameras:
+        ret, frame = cam.read()
+        cam.release()
+
+        if not ret:
+            print("Camera %i failed", index)
+
+        out_dir = Path("camera-images")
+        out_dir.mkdir(exist_ok=True)
+        filename = out_dir / f"photo_{index}.jpg"
+
+        cv2.imwrite(str(filename), frame, [cv2.IMWRITE_JPEG_QUALITY, 90])
+        print(f"Saved JPEG to {filename}")
+
+capture_images()
+
 try:
     while True:
         dist = get_distance()
@@ -60,21 +78,6 @@ try:
         else:
             print("LED on")
             led.on()
-
-        index = 0
-        for cam in cameras:
-            ret, frame = cam.read()
-            cam.release()
-
-            if not ret:
-                print("Camera %i failed", index)
-
-            out_dir = Path("camera-images")
-            out_dir.mkdir(exist_ok=True)
-            filename = out_dir / f"photo_{index}.jpg"
-
-            cv2.imwrite(str(filename), frame, [cv2.IMWRITE_JPEG_QUALITY, 90])
-            print(f"Saved JPEG to {filename}")
 
 except KeyboardInterrupt:
     GPIO.cleanup()
