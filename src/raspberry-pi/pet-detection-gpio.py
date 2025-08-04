@@ -13,7 +13,7 @@ cap1 = cv2.VideoCapture(0)
 cap2 = cv2.VideoCapture(1)
 
 # Open second camera (usually /dev/video1)
-cap2 = cv2.VideoCapture(2)
+cap3 = cv2.VideoCapture(2)
 
 if not cap1.isOpened():
     print("Camera 0 failed to open.")
