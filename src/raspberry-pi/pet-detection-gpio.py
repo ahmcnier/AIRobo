@@ -61,6 +61,7 @@ def capture_images():
 
         cv2.imwrite(str(filename), frame, [cv2.IMWRITE_JPEG_QUALITY, 90])
         print(f"Saved JPEG to {filename}")
+        index += 1
 
 capture_images()
 
