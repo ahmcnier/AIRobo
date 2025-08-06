@@ -8,13 +8,12 @@ import cv2
 
 led = LED(17)
 
-# Open first camera (usually /dev/video0)
+#open cameras
+print("Opening cam 1")
 cap1 = cv2.VideoCapture(0)
-
-# Open second camera (usually /dev/video1)
+print("Opening cam 2")
 cap2 = cv2.VideoCapture(2)
-
-# Open second camera (usually /dev/video2)
+print("Opening cam 3")
 cap3 = cv2.VideoCapture(4)
 
 cameras = [cap1, cap2, cap3]
