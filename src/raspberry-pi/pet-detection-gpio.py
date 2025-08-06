@@ -11,10 +11,13 @@ led = LED(17)
 #open cameras
 print("Opening cam 1")
 cap1 = cv2.VideoCapture(0)
+cap1.release()
 print("Opening cam 2")
 cap2 = cv2.VideoCapture(2)
+cap2.release()
 print("Opening cam 3")
 cap3 = cv2.VideoCapture(4)
+cap3.release()
 
 cameras = [cap1, cap2, cap3]
 
