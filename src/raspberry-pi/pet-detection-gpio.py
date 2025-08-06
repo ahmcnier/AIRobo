@@ -52,6 +52,7 @@ def get_distance():
 def capture_images():
     index = 0
     for cam in cameras:
+        cam.open(index*2)
         ret, frame = cam.read()
         cam.release()
 
