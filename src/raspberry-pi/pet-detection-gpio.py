@@ -14,7 +14,7 @@ cap1 = cv2.VideoCapture(0)
 print("Opening cam 2")
 cap2 = cv2.VideoCapture(2)
 print("Opening cam 3")
-cap3 = cv2.VideoCapture(4)
+cap3 = cv2.VideoCapture("/dev/v4l/by-id/usb-Centerm_Camera_etc-video-index0")
 
 cameras = [cap1, cap2, cap3]
 
